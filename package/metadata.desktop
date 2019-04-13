@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=Side Calendar
+Comment=Month display with your appointments and events
+
+Icon=office-calendar
+Type=Service
+X-KDE-PluginInfo-Author=Chris Holland
+X-KDE-PluginInfo-Email=zrenfire@gmail.com
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-Name=com.github.zren.sidecalendar
+X-KDE-PluginInfo-Version=1
+X-KDE-PluginInfo-Website=https://www.github.com/Zren/plasma-applet-sidecalendar
+X-KDE-ServiceTypes=Plasma/Applet
+X-Plasma-API=declarativeappletscript
+X-Plasma-Provides=org.kde.plasma.date
+
+X-Plasma-MainScript=ui/main.qml
+X-KDE-PluginInfo-Category=Date and Time
