@@ -26,8 +26,6 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as Components
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 
-import "./badges"
-
 Item {
 	id: daysCalendar
 
@@ -55,22 +53,6 @@ Item {
 
 	property real cellRadius: 0
 	readonly property bool squareCells: cellRadius >= 0.4
-
-	readonly property string _eventBadgeType: {
-		switch (eventBadgeType) {
-			case 'bottomBar':
-			case 'dots':
-				return eventBadgeType
-
-			case 'theme':
-			default:
-				if (calendarSvg.hasElement('event')) {
-					return daysCalendar.eventBadgeType
-				} else {
-					return 'bottomBar'
-				}
-		}
-	}
 
 	readonly property string _todayStyle: {
 		switch (todayStyle) {
@@ -298,26 +280,6 @@ Item {
 				elementId: "event"
 			}
 		}
-	}
-
-	Component {
-		id: highlightBarBadgeComponent
-		HighlightBarBadge {}
-	}
-
-	Component {
-		id: eventColorsBarBadgeComponent
-		EventColorsBarBadge {}
-	}
-
-	Component {
-		id: dotsBadgeComponent
-		DotsBadge {}
-	}
-
-	Component {
-		id: eventCountBadgeComponent
-		EventCountBadge {}
 	}
 
 	Connections {

@@ -29,7 +29,6 @@ import "LocalizedDate.js" as LocalizedDate
 MouseArea {
 	id: dayStyle
 
-	readonly property string eventBadgeType: daysCalendar._eventBadgeType
 	readonly property string todayStyle: daysCalendar._todayStyle
 
 	hoverEnabled: true
@@ -82,25 +81,6 @@ MouseArea {
 		height: daysCalendar.squareCells ? parent.minSize : undefined
 
 		Rectangle {
-			id: todayRect
-			anchors.fill: parent
-			radius: dayStyle.radius
-
-			visible: monthView.todayStyle == "theme"
-			opacity: {
-				if (selected && today) {
-					0.6
-				} else if (today) {
-					0.4
-				} else {
-					0
-				}
-			}
-			Behavior on opacity { NumberAnimation { duration: units.longDuration } }
-			color: theme.textColor
-		}
-
-		Rectangle {
 			id: highlightDate
 			anchors.fill: parent
 			radius: dayStyle.radius
@@ -116,7 +96,6 @@ MouseArea {
 			}
 			Behavior on opacity { NumberAnimation { duration: units.longDuration } }
 			color: theme.highlightColor
-			z: todayRect.z - 1
 		}
 
 	}
@@ -136,40 +115,6 @@ MouseArea {
 			}
 		}
 		eventColors = Object.keys(set)
-	}
-
-
-	Item {
-		id: eventBadge
-		visible: model.showEventBadge || false
-		anchors.fill: parent
-
-		Loader {
-			id: eventBadgeLoader
-			anchors.fill: parent
-
-			active: parent.visible
-			property Component badgeComponent: {
-				if (eventBadgeType == 'bottomBar') {
-					return eventColorsBarBadgeComponent
-				} else if (eventBadgeType == 'bottomBarHighlight') {
-					return highlightBarBadgeComponent
-				} else if (eventBadgeType == 'count') {
-					return eventCountBadgeComponent
-				} else if (eventBadgeType == 'dots') {
-					return dotsBadgeComponent
-				} else if (eventBadgeType == 'theme') {
-					return themeBadgeComponent
-				} else {
-					return null
-				}
-			}
-			sourceComponent: badgeComponent
-
-			readonly property var modelEvents: model.events
-			readonly property int modelEventsCount: modelEvents ? modelEvents.count : 0
-			property alias dayStyle: dayStyle // aka DayDelegate
-		}
 	}
 
 	Text {
@@ -202,14 +147,10 @@ MouseArea {
 		font.pointSize: -1
 		color: {
 			if (today) {
-				if (todayStyle == "bigNumber") {
-					if (dayStyle.containsMouse || dayStyle.selected) {
-						return theme.textColor
-					} else {
-						return theme.highlightColor
-					}
-				} else { // todayStyle == "theme"
-					return theme.backgroundColor
+				if (dayStyle.containsMouse || dayStyle.selected) {
+					return theme.textColor
+				} else {
+					return theme.highlightColor
 				}
 			} else {
 				return theme.textColor

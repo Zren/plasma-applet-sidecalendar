@@ -58,8 +58,6 @@ PinchArea {
 
 	property real cellRadius: 0.5
 	property bool using24hClock: false
-	property string eventBadgeType: "bottomBar"
-	property string todayStyle: "theme"
 
 	property alias cellHeight: mainDaysCalendar.cellHeight
 	// property QtObject daysModel: calendarBackend.daysModel

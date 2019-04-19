@@ -63,7 +63,6 @@ DialogApplet {
 				showWeekNumbers: true
 
 				// showOutlines: false
-				todayStyle: "bigNumber"
 
 				anchors.fill: parent
 			}
