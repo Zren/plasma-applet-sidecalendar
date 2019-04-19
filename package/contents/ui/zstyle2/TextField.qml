@@ -103,6 +103,18 @@ T.TextField {
     leftPadding: background.leftMargin
     rightPadding: background.rightMargin
     //---
+    property bool autoScrollOnChange: false
+    function scrollToBeginning() {
+        if (text.length >= 1) {
+            summaryTextField.ensureVisible(0)
+        }
+    }
+    onTextChanged: {
+        if (!autoScrollOnChange) {
+            Qt.callLater(scrollToBeginning)
+        }
+    }
+    //---
 
     background: Item {
         Private.TextFieldFocus {
