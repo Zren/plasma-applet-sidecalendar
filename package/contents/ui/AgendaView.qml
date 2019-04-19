@@ -55,4 +55,14 @@ ScrollView {
 			newEventDialog.visible = true
 		}
 	}
+
+	property Connections dialogConnection: Connections {
+		target: main
+		onDialogVisibleChanged: {
+			if (!main.dialogVisible) {
+				newEventDialog.visible = false
+				eventDialog.visible = false
+			}
+		}
+	}
 }
