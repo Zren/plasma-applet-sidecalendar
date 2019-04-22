@@ -151,6 +151,13 @@ QtObject {
 		execUtil.exec(cmd, callback)
 	}
 
+	function fetchCalendars(callback) {
+		var args = [
+			'calendars',
+		]
+		evcal(args, callback)
+	}
+
 	function fetchAgenda(start, end, callback) {
 		var args = [
 			'agenda',
@@ -160,7 +167,21 @@ QtObject {
 		evcal(args, callback)
 	}
 
-	function updateModel() {
+	function updateCalendarList(callback) {
+		fetchCalendars(function(cmd, exitCode, exitStatus, stdout, stderr){
+			var data = JSON.parse(stdout)
+			var newCalendarList = {}
+			data.forEach(function(calendar){
+				newCalendarList[calendar['id']] = calendar
+			})
+
+			calendarList = newCalendarList
+
+			callback()
+		})
+	}
+
+	function updateAgendaModel(callback) {
 		var start = '2019-03-01'
 		var end = '2019-03-31'
 		fetchAgenda(start, end, function(cmd, exitCode, exitStatus, stdout, stderr){
@@ -177,9 +198,18 @@ QtObject {
 			})
 			// console.log(JSON.stringify(data, null, '\t'))
 
-			data = [].concat(defaultData, data)
+			// data = [].concat(defaultData, data)
 			agendaModel.data = data
 
+			callback()
+		})
+	}
+
+	function updateModel() {
+		updateCalendarList(function(){
+			updateAgendaModel(function(){
+				
+			})
 		})
 	}
 
