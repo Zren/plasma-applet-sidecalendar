@@ -24,19 +24,19 @@ QtObject {
 
 	property var calendarList: ({
 		personal: {
-			name: 'Personal',
+			summary: 'Personal',
 			backgroundColor: "#1b9efb",
 		},
 		work: {
-			name: 'Work',
+			summary: 'Work',
 			backgroundColor: "#56d72b",
 		},
 		family: {
-			name: 'Family',
+			summary: 'Family',
 			backgroundColor: "#fec505",
 		},
 		friends: {
-			name: 'Friends',
+			summary: 'Friends',
 			backgroundColor: "#cb70e0",
 		},
 	})

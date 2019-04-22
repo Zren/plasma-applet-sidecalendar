@@ -17,7 +17,7 @@ PlasmaComponents3.ComboBox {
 	}
 	model: calendarList
 
-	textRole: "name"
+	textRole: "summary"
 	property string colorRole: "backgroundColor"
 
 	editText: calendarList && calendarList.length >= 1 ? calendarList[0][textRole] : ""
