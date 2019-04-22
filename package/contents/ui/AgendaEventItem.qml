@@ -13,9 +13,12 @@ MouseArea {
 	readonly property var eventData: modelData
 	readonly property var eventColor: eventData.backgroundColor || eventData.calendar.backgroundColor
 
-	readonly property color textColor: containsMouse ? theme.highlightedTextColor : theme.textColor
-	readonly property color backgroundColor: containsMouse ? theme.highlightColor : "transparent"
-	
+	readonly property bool isActiveEvent: agendaView.eventDialog.eventItem == eventItem
+	property bool isHighlighted: containsMouse || isActiveEvent
+
+	readonly property color textColor: isHighlighted ? theme.highlightedTextColor : theme.textColor
+	readonly property color backgroundColor: isHighlighted ? theme.highlightColor : "transparent"
+
 	property int horzPadding: units.smallSpacing * 2
 	property int vertPadding: units.smallSpacing
 	Layout.fillWidth: true
@@ -26,7 +29,7 @@ MouseArea {
 		id: backgroundRect
 		anchors.fill: parent
 		color: eventItem.backgroundColor
-		opacity: eventItem.containsMouse ? 0.6 : 0
+		opacity: eventItem.isHighlighted ? 0.6 : 0
 		Behavior on opacity { NumberAnimation { duration: units.longDuration } }
 	}
 
@@ -50,7 +53,7 @@ MouseArea {
 				Layout.alignment: Qt.AlignVCenter
 				hoverEnabled: true
 
-				property color currentColor: containsMouse ? Qt.tint(eventColor, "#80FFFFFF") : eventColor
+				property color currentColor: isHighlighted ? Qt.tint(eventColor, "#80FFFFFF") : eventColor
 
 				onClicked: {
 					eventData.isCompleted = !eventData.isCompleted
@@ -100,7 +103,7 @@ MouseArea {
 			id: eventTimestamp
 			Layout.alignment: Qt.AlignTop
 			color: eventItem.textColor
-			opacity: eventItem.containsMouse ? 1 : 0.6
+			opacity: eventItem.isHighlighted ? 1 : 0.6
 			Behavior on color { ColorAnimation { duration: units.longDuration } }
 			Behavior on opacity { NumberAnimation { duration: units.longDuration } }
 		}
