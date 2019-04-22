@@ -115,6 +115,8 @@ T.TextField {
         }
     }
     //---
+    property real inactiveBackgroundOpacity: 0
+    //---
 
     background: Item {
         Private.TextFieldFocus {
@@ -134,7 +136,7 @@ T.TextField {
         readonly property int leftMargin: base.fixedMargins.left
         readonly property int rightMargin: base.fixedMargins.right
 
-        opacity: (control.hovered || control.activeFocus) ? 1 : 0
+        opacity: (control.hovered || control.activeFocus) ? 1 : control.inactiveBackgroundOpacity
         //---
     }
 }
