@@ -14,14 +14,24 @@ RowLayout {
 	property var dateTime: new Date()
 	property bool enabled: true
 	property bool showTime: true
+	property string dateFormat: "d MMM, yyyy"
+	property string timeFormat: "HH:mm AP"
 
-	PlasmaComponents.TextField {
-		text: Qt.formatDateTime(dateTimeSelector.dateTime, "MM/dd/yyyy")
+	ZStyle2.TextField {
+		text: Qt.formatDateTime(dateTimeSelector.dateTime, dateTimeSelector.dateFormat)
 		enabled: dateTimeSelector.enabled
+		opacity: 1 // Override disabled opacity effect.
+		inactiveBackgroundOpacity: enabled ? 1 : 0.4
+		defaultMinimumWidth: 0
 	}
-	PlasmaComponents.TextField {
-		text: Qt.formatDateTime(dateTimeSelector.dateTime, "HH:mm AP")
-		enabled: dateTimeSelector.enabled && !dateTimeSelector.showTime
-		opacity: dateTimeSelector.showTime ? 0 : 1
+	ZStyle2.TextField {
+		text: Qt.formatDateTime(dateTimeSelector.dateTime, dateTimeSelector.timeFormat)
+		enabled: dateTimeSelector.enabled && dateTimeSelector.showTime
+		opacity: 1 // Override disabled opacity effect.
+		inactiveBackgroundOpacity: enabled ? 1 : 0.4
+		visible: dateTimeSelector.showTime
+		defaultMinimumWidth: 0
 	}
+
+
 }
