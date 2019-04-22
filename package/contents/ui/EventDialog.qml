@@ -21,6 +21,8 @@ PlasmaCore.Dialog {
 			summaryTextField.text = eventData.summary || ""
 			locationTextField.text = eventData.location || ""
 			isAllDayCheckBox.checked = eventData.isAllDay || false
+			startTimeSelector.dateTime = eventData.startDateTime || new Date()
+			endTimeSelector.dateTime = eventData.endDateTime || new Date()
 			calendarSelector.currentIndex = calendarSelector.find(eventData.calendar.summary)
 		}
 	}
@@ -114,30 +116,18 @@ PlasmaCore.Dialog {
 						font.weight: Font.Bold
 						Layout.alignment: Qt.AlignRight
 					}
-					RowLayout {
-						PlasmaComponents.TextField {
-							text: Qt.formatDateTime(eventData.startDateTime, "MM/dd/yyyy")
-						}
-						PlasmaComponents.TextField {
-							text: Qt.formatDateTime(eventData.startDateTime, "HH:mm AP")
-							enabled: !isAllDayCheckBox.checked
-							opacity: isAllDayCheckBox.checked ? 0 : 1
-						}
+					DateTimeSelector {
+						id: startTimeSelector
+						showTime: isAllDayCheckBox.checked
 					}
 					PlasmaComponents.Label {
 						text: "ends"
 						font.weight: Font.Bold
 						Layout.alignment: Qt.AlignRight
 					}
-					RowLayout {
-						PlasmaComponents.TextField {
-							text: Qt.formatDateTime(eventData.endDateTime, "MM/dd/yyyy")
-						}
-						PlasmaComponents.TextField {
-							text: Qt.formatDateTime(eventData.endDateTime, "HH:mm AP")
-							enabled: !isAllDayCheckBox.checked
-							opacity: isAllDayCheckBox.checked ? 0 : 1
-						}
+					DateTimeSelector {
+						id: endTimeSelector
+						showTime: isAllDayCheckBox.checked
 					}
 					PlasmaComponents.Label {
 						text: "calendar"
