@@ -21,7 +21,7 @@ PlasmaCore.Dialog {
 			summaryTextField.text = eventData.summary || ""
 			locationTextField.text = eventData.location || ""
 			isAllDayCheckBox.checked = eventData.isAllDay || false
-			calendarSelector.currentIndex = calendarSelector.find(eventData.calendar.name)
+			calendarSelector.currentIndex = calendarSelector.find(eventData.calendar.summary)
 		}
 	}
 
@@ -146,7 +146,7 @@ PlasmaCore.Dialog {
 					}
 					CalendarSelector {
 						id: calendarSelector
-						// editText: eventData.calendar.name
+						// editText: eventData.calendar.summary
 					}
 				}
 			}
