@@ -14,8 +14,12 @@ ColumnLayout {
 	property alias dayHeading: dayHeading
 	MouseArea {
 		id: dayHeading
-		readonly property color textColor: containsMouse ? theme.highlightedTextColor : theme.textColor
-		readonly property color backgroundColor: containsMouse ? theme.highlightColor : "transparent"
+
+		readonly property bool isActiveDay: agendaView.newEventDialog.agendaItem == agendaItem
+		property bool isHighlighted: containsMouse || isActiveDay
+
+		readonly property color textColor: isHighlighted ? theme.highlightedTextColor : theme.textColor
+		readonly property color backgroundColor: isHighlighted ? theme.highlightColor : "transparent"
 		
 		property int horzPadding: 2 * units.devicePixelRatio
 		property int vertPadding: 2 * units.devicePixelRatio
@@ -28,7 +32,7 @@ ColumnLayout {
 			id: backgroundRect
 			anchors.fill: parent
 			color: dayHeading.backgroundColor
-			opacity: dayHeading.containsMouse ? 0.6 : 0
+			opacity: dayHeading.isHighlighted ? 0.6 : 0
 			Behavior on opacity { NumberAnimation { duration: units.longDuration } }
 		}
 
@@ -46,7 +50,7 @@ ColumnLayout {
 				text: Qt.formatDateTime(dayData.dateTime, "dddd M/d/yy").toUpperCase()
 				font.weight: Font.Bold
 				color: dayHeading.textColor
-				opacity: dayHeading.containsMouse ? 1 : 0.6
+				opacity: dayHeading.isHighlighted ? 1 : 0.6
 				Behavior on color { ColorAnimation { duration: units.longDuration } }
 				Behavior on opacity { NumberAnimation { duration: units.longDuration } }
 			}
@@ -56,7 +60,7 @@ ColumnLayout {
 				text: "✚"
 				font.weight: Font.Bold
 				color: dayHeading.textColor
-				opacity: dayHeading.containsMouse ? 1 : 0
+				opacity: dayHeading.isHighlighted ? 1 : 0
 				Behavior on color { ColorAnimation { duration: units.longDuration } }
 				Behavior on opacity { NumberAnimation { duration: units.longDuration } }
 			}
