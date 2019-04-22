@@ -28,6 +28,7 @@ PlasmaCore.Dialog {
 			startTimeSelector.dateTime = eventData.startDateTime || new Date()
 			endTimeSelector.dateTime = eventData.endDateTime || new Date()
 			calendarSelector.currentIndex = calendarSelector.find(eventData.calendar.summary)
+			descriptionTextField.text = eventData.description || ""
 			populated = true
 		}
 	}
@@ -156,6 +157,24 @@ PlasmaCore.Dialog {
 						id: calendarSelector
 						// editText: eventData.calendar.summary
 						enabled: eventDialog.editing
+					}
+
+					EventDialogIcon {
+						source: "x-shape-text"
+						labelFor: descriptionTextField
+						Layout.fillHeight: false
+						Layout.preferredHeight: locationTextField.implicitHeight
+						Layout.alignment: Qt.AlignTop
+					}
+					ZStyle2.TextArea {
+						id: descriptionTextField
+						Layout.fillWidth: true
+						placeholderText: i18n("Add description")
+						font.pointSize: -1
+						font.pixelSize: 12 * units.devicePixelRatio
+						enabled: eventDialog.editing
+						visible: text || eventDialog.editing
+						implicitWidth: units.gridUnits * 8
 					}
 				}
 			}
