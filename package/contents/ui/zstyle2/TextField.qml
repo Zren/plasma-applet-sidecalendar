@@ -28,9 +28,17 @@ import org.kde.kirigami 2.5 as Kirigami
 T.TextField {
     id: control
 
-    implicitWidth: Math.max(units.gridUnit * 8,
-                            placeholderText ? placeholder.implicitWidth + leftPadding + rightPadding : 0)
-                            || contentWidth + leftPadding + rightPadding
+    //---
+    property int defaultMinimumWidth: units.gridUnit * 8
+    readonly property int implicitPlaceholderWidth: placeholderText ? placeholder.implicitWidth + leftPadding + rightPadding : 0
+    readonly property int implicitContentWidth: contentWidth + leftPadding + rightPadding
+    readonly property int minimumWidth: placeholder.visible ? implicitPlaceholderWidth : implicitContentWidth
+    implicitWidth: Math.max(defaultMinimumWidth, minimumWidth)
+    //---
+
+    // implicitWidth: Math.max(units.gridUnit * 8,
+    //                         placeholderText ? placeholder.implicitWidth + leftPadding + rightPadding : 0)
+    //                         || contentWidth + leftPadding + rightPadding
     // implicitHeight: units.gridUnit * 1.6
 
     // padding: 6
