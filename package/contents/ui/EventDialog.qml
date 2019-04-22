@@ -16,19 +16,26 @@ PlasmaCore.Dialog {
 	readonly property var eventData: eventItem ? eventItem.eventData : null
 	visible: false
 
+	property bool populated: false
+	property bool editing: false
+
 	onEventDataChanged: {
 		if (eventData) {
+			editing = false
 			summaryTextField.text = eventData.summary || ""
 			locationTextField.text = eventData.location || ""
 			isAllDayCheckBox.checked = eventData.isAllDay || false
 			startTimeSelector.dateTime = eventData.startDateTime || new Date()
 			endTimeSelector.dateTime = eventData.endDateTime || new Date()
 			calendarSelector.currentIndex = calendarSelector.find(eventData.calendar.summary)
+			populated = true
 		}
 	}
 
 	onVisibleChanged: {
 		if (!visible) {
+			editing = false
+			populated = false
 			eventItem = null
 			main.dialog.requestActivate()
 		}
@@ -74,6 +81,12 @@ PlasmaCore.Dialog {
 						placeholderText: i18n("Event Summary")
 						font.pointSize: -1
 						font.pixelSize: 16 * units.devicePixelRatio
+						enabled: eventDialog.editing
+					}
+					PlasmaComponents3.ToolButton {
+						Layout.alignment: Qt.AlignTop
+						icon.name: "edit-entry"
+						onClicked: eventDialog.editing = !eventDialog.editing
 					}
 					PlasmaComponents3.ToolButton {
 						Layout.alignment: Qt.AlignTop
@@ -89,6 +102,8 @@ PlasmaCore.Dialog {
 					placeholderText: i18n("Add Location")
 					font.pointSize: -1
 					font.pixelSize: 12 * units.devicePixelRatio
+					enabled: eventDialog.editing
+					visible: text || eventDialog.editing
 				}
 
 				Rectangle {
@@ -137,6 +152,7 @@ PlasmaCore.Dialog {
 					CalendarSelector {
 						id: calendarSelector
 						// editText: eventData.calendar.summary
+						enabled: eventDialog.editing
 					}
 				}
 			}
