@@ -21,7 +21,7 @@ PlasmaCore.Dialog {
 
 	onEventDataChanged: {
 		if (eventData) {
-			editing = false
+			editing = true // TODO: false
 			summaryTextField.text = eventData.summary || ""
 			locationTextField.text = eventData.location || ""
 			isAllDayCheckBox.checked = eventData.isAllDay || false
