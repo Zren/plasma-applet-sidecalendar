@@ -22,7 +22,7 @@ QtObject {
 		return args
 	}
 
-	property var calendarList: ({
+	property var defaultCalendarList: ({
 		personal: {
 			summary: 'Personal',
 			backgroundColor: "#1b9efb",
@@ -40,6 +40,8 @@ QtObject {
 			backgroundColor: "#cb70e0",
 		},
 	})
+	// property var calendarList: defaultCalendarList
+	property var calendarList: ({})
 
 	property var defaultData: [
 		{
@@ -132,7 +134,8 @@ QtObject {
 			]
 		},
 	]
-	property var data: defaultData
+	// property var data: defaultData
+	property var data: []
 
 
 	property var execUtil: ExecUtil { id: execUtil }
