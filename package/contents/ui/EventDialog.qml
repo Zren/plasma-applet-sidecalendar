@@ -95,59 +95,62 @@ PlasmaCore.Dialog {
 					}
 				}
 
-				ZStyle2.TextField {
-					id: locationTextField
-					Layout.fillWidth: true
-					// text: eventData.location
-					placeholderText: i18n("Add Location")
-					font.pointSize: -1
-					font.pixelSize: 12 * units.devicePixelRatio
-					enabled: eventDialog.editing
-					visible: text || eventDialog.editing
-				}
-
-				Rectangle {
-					Layout.fillWidth: true
-					height: 1 * units.devicePixelRatio
-					color: theme.textColor
-					opacity: 0.5
-				}
-
-				GridLayout {
-					columns: 2
-					columnSpacing: units.largeSpacing
-
-					PlasmaComponents.Label {
-						text: "all-day"
-						font.weight: Font.Bold
-						Layout.alignment: Qt.AlignRight
-					}
-					PlasmaComponents.CheckBox {
-						id: isAllDayCheckBox
-						// checked: eventData.isAllDay
-					}
-					PlasmaComponents.Label {
-						text: "starts"
-						font.weight: Font.Bold
-						Layout.alignment: Qt.AlignRight
-					}
+				RowLayout {
 					DateTimeSelector {
 						id: startTimeSelector
-						showTime: isAllDayCheckBox.checked
+						enabled: eventDialog.editing
+						showTime: !isAllDayCheckBox.checked
 					}
 					PlasmaComponents.Label {
-						text: "ends"
+						text: " to "
 						font.weight: Font.Bold
 						Layout.alignment: Qt.AlignRight
 					}
 					DateTimeSelector {
 						id: endTimeSelector
-						showTime: isAllDayCheckBox.checked
+						enabled: eventDialog.editing
+						showTime: !isAllDayCheckBox.checked
 					}
-					PlasmaComponents.Label {
-						text: "calendar"
-						font.weight: Font.Bold
-						Layout.alignment: Qt.AlignRight
+				}
+
+				RowLayout {
+					PlasmaComponents3.CheckBox {
+						id: isAllDayCheckBox
+						text: "All day"
+						enabled: eventDialog.editing
+						contentItem.opacity: 1
+						visible: eventDialog.editing
+					}
+				}
+
+				// Rectangle {
+				// 	Layout.fillWidth: true
+				// 	height: 1 * units.devicePixelRatio
+				// 	color: theme.textColor
+				// 	opacity: 0.5
+				// }
+
+				GridLayout {
+					columns: 2
+					columnSpacing: units.smallSpacing
+
+					EventDialogIcon {
+						source: "mark-location-symbolic"
+						labelFor: locationTextField
+					}
+					ZStyle2.TextField {
+						id: locationTextField
+						Layout.fillWidth: true
+						placeholderText: i18n("Add Location")
+						font.pointSize: -1
+						font.pixelSize: 12 * units.devicePixelRatio
+						enabled: eventDialog.editing
+						visible: text || eventDialog.editing
+					}
+
+					EventDialogIcon {
+						source: "view-calendar-day"
+						labelFor: calendarSelector
 					}
 					CalendarSelector {
 						id: calendarSelector
