@@ -39,6 +39,8 @@ PlasmaCore.Dialog {
 
 			hoverEnabled: true
 
+			onClicked: focus = true
+
 			ColumnLayout {
 				id: dialogLayout
 
