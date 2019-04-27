@@ -98,22 +98,10 @@ PlasmaCore.Dialog {
 					}
 				}
 
-				RowLayout {
-					DateTimeSelector {
-						id: startTimeSelector
-						enabled: eventDialog.editing
-						showTime: !isAllDayCheckBox.checked
-					}
-					PlasmaComponents.Label {
-						text: " to "
-						font.weight: Font.Bold
-						Layout.alignment: Qt.AlignRight
-					}
-					DateTimeSelector {
-						id: endTimeSelector
-						enabled: eventDialog.editing
-						showTime: !isAllDayCheckBox.checked
-					}
+				DurationSelector {
+					id: durationSelector
+					enabled: eventDialog.editing
+					showTime: !isAllDayCheckBox.checked
 				}
 
 				RowLayout {
