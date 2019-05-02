@@ -18,6 +18,9 @@ RowLayout {
 	property bool enabled: true
 	property bool showTime: false
 
+	spacing: 0
+	Layout.minimumWidth: startTimeSelector.minimumWidth + seperatorLabel.implicitWidth + endTimeSelector.minimumWidth
+
 	DateTimeSelector {
 		id: startTimeSelector
 		enabled: durationSelector.enabled
@@ -25,7 +28,8 @@ RowLayout {
 		dateFirst: true
 	}
 	PlasmaComponents.Label {
-		text: i18n("to")
+		id: seperatorLabel
+		text: i18n(" to ")
 		font.weight: Font.Bold
 		Layout.alignment: Qt.AlignRight
 	}
@@ -34,5 +38,10 @@ RowLayout {
 		enabled: durationSelector.enabled
 		showTime: durationSelector.showTime
 		dateFirst: false
+	}
+
+	Item {
+		Layout.fillWidth: true
+		Layout.fillHeight: true
 	}
 }

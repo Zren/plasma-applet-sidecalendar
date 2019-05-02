@@ -17,8 +17,12 @@ GridLayout {
 	property string dateFormat: "d MMM, yyyy"
 	property string timeFormat: "HH:mm AP"
 	property bool dateFirst: true
+	columns: 2
+	columnSpacing: units.smallSpacing
+	readonly property int minimumWidth: dateSelector.implicitWidth + columnSpacing + timeSelector.implicitWidth
 
 	ZStyle2.TextField {
+		id: dateSelector
 		text: Qt.formatDateTime(dateTimeSelector.dateTime, dateTimeSelector.dateFormat)
 		enabled: dateTimeSelector.enabled
 		opacity: 1 // Override disabled opacity effect.
@@ -27,6 +31,7 @@ GridLayout {
 		Layout.column: dateTimeSelector.dateFirst ? 0 : 1
 	}
 	ZStyle2.TextField {
+		id: timeSelector
 		text: Qt.formatDateTime(dateTimeSelector.dateTime, dateTimeSelector.timeFormat)
 		enabled: dateTimeSelector.enabled && dateTimeSelector.showTime
 		opacity: 1 // Override disabled opacity effect.
