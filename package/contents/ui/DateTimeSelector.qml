@@ -9,13 +9,14 @@ import org.kde.plasma.components 3.0 as PlasmaComponents3
 
 import "zstyle2" as ZStyle2
 
-RowLayout {
+GridLayout {
 	id: dateTimeSelector
 	property var dateTime: new Date()
 	property bool enabled: true
 	property bool showTime: true
 	property string dateFormat: "d MMM, yyyy"
 	property string timeFormat: "HH:mm AP"
+	property bool dateFirst: true
 
 	ZStyle2.TextField {
 		text: Qt.formatDateTime(dateTimeSelector.dateTime, dateTimeSelector.dateFormat)
@@ -23,6 +24,7 @@ RowLayout {
 		opacity: 1 // Override disabled opacity effect.
 		inactiveBackgroundOpacity: enabled ? 1 : 0.4
 		defaultMinimumWidth: 0
+		Layout.column: dateTimeSelector.dateFirst ? 0 : 1
 	}
 	ZStyle2.TextField {
 		text: Qt.formatDateTime(dateTimeSelector.dateTime, dateTimeSelector.timeFormat)
@@ -31,6 +33,7 @@ RowLayout {
 		inactiveBackgroundOpacity: enabled ? 1 : 0.4
 		visible: dateTimeSelector.showTime
 		defaultMinimumWidth: 0
+		Layout.column: dateTimeSelector.dateFirst ? 1 : 0
 	}
 
 

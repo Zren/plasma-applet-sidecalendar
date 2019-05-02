@@ -22,6 +22,7 @@ RowLayout {
 		id: startTimeSelector
 		enabled: durationSelector.enabled
 		showTime: durationSelector.showTime
+		dateFirst: true
 	}
 	PlasmaComponents.Label {
 		text: i18n("to")
@@ -32,5 +33,6 @@ RowLayout {
 		id: endTimeSelector
 		enabled: durationSelector.enabled
 		showTime: durationSelector.showTime
+		dateFirst: false
 	}
 }
