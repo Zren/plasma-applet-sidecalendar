@@ -25,8 +25,8 @@ PlasmaCore.Dialog {
 			summaryTextField.text = eventData.summary || ""
 			locationTextField.text = eventData.location || ""
 			isAllDayCheckBox.checked = eventData.isAllDay || false
-			startTimeSelector.dateTime = eventData.startDateTime || new Date()
-			endTimeSelector.dateTime = eventData.endDateTime || new Date()
+			durationSelector.startDateTime = eventData.startDateTime || new Date()
+			durationSelector.endDateTime = eventData.endDateTime || new Date()
 			calendarSelector.currentIndex = calendarSelector.find(eventData.calendar.summary)
 			descriptionTextField.text = eventData.description || ""
 			populated = true
