@@ -4,23 +4,13 @@ import org.kde.plasma.components 3.0 as PlasmaComponents3
 
 PlasmaComponents3.ComboBox {
 	id: control
-	readonly property var calendarList: {
-		var map = agendaModel.calendarList
-		var keys = Object.keys(map)
-		var list = []
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i]
-			var calendar = map[key]
-			list.push(calendar)
-		}
-		return list
-	}
-	model: calendarList
+
+	model: agendaModel.calendarList
 
 	textRole: "summary"
 	property string colorRole: "backgroundColor"
 
-	editText: calendarList && calendarList.length >= 1 ? calendarList[0][textRole] : ""
+	editText: model && model.length >= 1 ? model[0][textRole] : ""
 
 	readonly property var currentItem: currentIndex >= 0 ? model[currentIndex] : null
 

@@ -22,7 +22,7 @@ QtObject {
 		return args
 	}
 
-	property var defaultCalendarList: ({
+	property var defaultCalendarMap: ({
 		personal: {
 			summary: 'Personal',
 			backgroundColor: "#1b9efb",
@@ -40,8 +40,20 @@ QtObject {
 			backgroundColor: "#cb70e0",
 		},
 	})
-	// property var calendarList: defaultCalendarList
-	property var calendarList: ({})
+	// property var calendarMap: defaultCalendarMap
+	property var calendarMap: ({})
+
+	readonly property var calendarList: {
+		var map = agendaModel.calendarMap
+		var keys = Object.keys(map)
+		var list = []
+		for (var i = 0; i < keys.length; i++) {
+			var key = keys[i]
+			var calendar = map[key]
+			list.push(calendar)
+		}
+		return list
+	}
 
 	property var defaultData: [
 		{
@@ -51,19 +63,19 @@ QtObject {
 					summary: 'Lunch with Eric',
 					startDateTime: deltaDateTime(0, 11, 30),
 					endDateTime: deltaDateTime(0, 12, 30),
-					calendar: calendarList.work,
+					calendar: calendarMap.work,
 				}),
 				event({
 					summary: 'Dentist',
 					startDateTime: deltaDateTime(0, 15, 0),
 					endDateTime: deltaDateTime(0, 16, 0),
-					calendar: calendarList.family,
+					calendar: calendarMap.family,
 				}),
 				event({
 					summary: 'Tennis lessons',
 					startDateTime: deltaDateTime(0, 18, 0),
 					endDateTime: deltaDateTime(0, 19, 30),
-					calendar: calendarList.personal,
+					calendar: calendarMap.personal,
 				}),
 			]
 		},
@@ -75,7 +87,7 @@ QtObject {
 					startDateTime: deltaDateTime(1),
 					endDateTime: deltaDateTime(2),
 					isAllDay: true,
-					calendar: calendarList.work,
+					calendar: calendarMap.work,
 				}),
 				event({
 					summary: 'Take out the trash',
@@ -83,13 +95,13 @@ QtObject {
 					endDateTime: deltaDateTime(1, 7, 0),
 					isTask: true,
 					isCompleted: true,
-					calendar: calendarList.personal,
+					calendar: calendarMap.personal,
 				}),
 				event({
 					summary: 'Pizza party',
 					startDateTime: deltaDateTime(1, 12, 30),
 					endDateTime: deltaDateTime(1, 13, 30),
-					calendar: calendarList.work,
+					calendar: calendarMap.work,
 				}),
 				task({
 					summary: 'Book hotel',
@@ -97,7 +109,7 @@ QtObject {
 					endDateTime: deltaDateTime(1, 18, 0),
 					isTask: true,
 					isCompleted: false,
-					calendar: calendarList.personal,
+					calendar: calendarMap.personal,
 				}),
 				task({
 					summary: 'Exercise',
@@ -105,7 +117,7 @@ QtObject {
 					endDateTime: deltaDateTime(1, 18, 0),
 					isTask: true,
 					isCompleted: true,
-					calendar: calendarList.personal,
+					calendar: calendarMap.personal,
 				}),
 			]
 		},
@@ -117,19 +129,19 @@ QtObject {
 					startDateTime: deltaDateTime(2),
 					endDateTime: deltaDateTime(3),
 					isAllDay: true,
-					calendar: calendarList.work,
+					calendar: calendarMap.work,
 				}),
 				event({
 					summary: 'Office BBQ',
 					startDateTime: deltaDateTime(2, 17, 0),
 					endDateTime: deltaDateTime(2, 18, 0),
-					calendar: calendarList.work,
+					calendar: calendarMap.work,
 				}),
 				event({
 					summary: 'Concert',
 					startDateTime: deltaDateTime(2, 19, 30),
 					endDateTime: deltaDateTime(2, 22, 0),
-					calendar: calendarList.friends,
+					calendar: calendarMap.friends,
 				}),
 			]
 		},
@@ -173,12 +185,12 @@ QtObject {
 	function updateCalendarList(callback) {
 		fetchCalendars(function(cmd, exitCode, exitStatus, stdout, stderr){
 			var data = JSON.parse(stdout)
-			var newCalendarList = {}
+			var newCalendarMap = {}
 			data.forEach(function(calendar){
-				newCalendarList[calendar['id']] = calendar
+				newCalendarMap[calendar['id']] = calendar
 			})
 
-			calendarList = newCalendarList
+			calendarMap = newCalendarMap
 
 			callback()
 		})
