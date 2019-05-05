@@ -114,7 +114,7 @@ T.TextField {
     property bool autoScrollOnChange: false
     function scrollToBeginning() {
         if (text.length >= 1) {
-            summaryTextField.ensureVisible(0)
+            control.ensureVisible(0)
         }
     }
     onTextChanged: {
