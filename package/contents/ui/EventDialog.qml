@@ -137,6 +137,7 @@ PlasmaCore.Dialog {
 						font.pixelSize: 12 * units.devicePixelRatio
 						enabled: eventDialog.editing
 						visible: text || eventDialog.editing
+						wrapMode: TextEdit.Wrap
 					}
 
 					EventDialogIcon {
@@ -165,6 +166,7 @@ PlasmaCore.Dialog {
 						enabled: eventDialog.editing
 						visible: text || eventDialog.editing
 						implicitWidth: units.gridUnits * 8
+						wrapMode: TextEdit.Wrap
 					}
 				}
 			}
