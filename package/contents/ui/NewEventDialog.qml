@@ -45,13 +45,15 @@ PlasmaCore.Dialog {
 				id: dialogLayout
 
 				RowLayout {
-					PlasmaComponents3.TextField {
+					ZStyle2.TextField {
 						Layout.fillWidth: true
 						Layout.preferredWidth: 300 * units.devicePixelRatio
 						text: ""
 						placeholderText: i18n("Eg: 9am-5pm Work")
 						font.pointSize: -1
 						font.pixelSize: 16 * units.devicePixelRatio
+						wrapMode: TextEdit.Wrap
+						inactiveBackgroundOpacity: 1
 					}
 					PlasmaComponents3.ToolButton {
 						Layout.alignment: Qt.AlignTop

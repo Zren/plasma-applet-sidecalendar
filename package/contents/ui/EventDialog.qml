@@ -85,6 +85,7 @@ PlasmaCore.Dialog {
 						font.pointSize: -1
 						font.pixelSize: 16 * units.devicePixelRatio
 						enabled: eventDialog.editing
+						wrapMode: TextEdit.Wrap
 					}
 					PlasmaComponents3.ToolButton {
 						Layout.alignment: Qt.AlignTop
