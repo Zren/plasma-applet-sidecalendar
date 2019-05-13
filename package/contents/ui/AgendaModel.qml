@@ -196,6 +196,11 @@ QtObject {
 		})
 	}
 
+	function parseEvent(event) {
+		parseDateTime(event, 'startDateTime')
+		parseDateTime(event, 'endDateTime')
+	}
+
 	function updateAgendaModel(callback) {
 		var start = '2019-03-01'
 		var end = '2019-03-31'
@@ -206,10 +211,7 @@ QtObject {
 			data.forEach(function(agendaItem){
 				parseDateTime(agendaItem, 'dateTime')
 				// console.log(JSON.stringify(agendaItem, null, '\t'))
-				agendaItem.events.forEach(function(event){
-					parseDateTime(event, 'startDateTime')
-					parseDateTime(event, 'endDateTime')
-				})
+				agendaItem.events.map(parseEvent)
 			})
 			// console.log(JSON.stringify(data, null, '\t'))
 
@@ -225,6 +227,31 @@ QtObject {
 			updateAgendaModel(function(){
 				
 			})
+		})
+	}
+
+	function sendQuickAdd(pluginId, calendarId, date, text, callback) {
+		var args = [
+			'quickadd',
+			'--date=' + date,
+			pluginId,
+			calendarId,
+			text,
+		]
+		evcal(args, callback)
+	}
+
+	function quickAdd(pluginId, calendarId, date, text, callback) {
+		sendQuickAdd(function(cmd, exitCode, exitStatus, stdout, stderr){
+			var data = JSON.parse(stdout)
+			var newCalendarMap = {}
+			data.forEach(function(calendar){
+				newCalendarMap[calendar['id']] = calendar
+			})
+
+			calendarMap = newCalendarMap
+
+			callback()
 		})
 	}
 
