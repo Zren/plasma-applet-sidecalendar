@@ -97,9 +97,18 @@ DialogApplet {
 	}
 
 	dialog.visualParent: null
-	dialog.x: Screen.desktopAvailableWidth - dialog.width
 	// dialog.height: Screen.desktopAvailableHeight
 	dialog.location: PlasmaCore.Types.RightEdge
+	// dialog.location: PlasmaCore.Types.LeftEdge
+	dialog.x: {
+		if (dialog.location == PlasmaCore.Types.LeftEdge) {
+			return 0
+		} else if (dialog.location == PlasmaCore.Types.RightEdge) {
+			return Screen.desktopAvailableWidth - dialog.width
+		} else {
+			return 0
+		}
+	}
 
 	Binding {
 		target: plasmoid
