@@ -26,7 +26,7 @@ PlasmaCore.Dialog {
 	visualParent: agendaItem ? agendaItem.dayHeading : null
 
 	flags: Qt.WindowStaysOnTopHint
-	location: PlasmaCore.Types.RightEdge
+	location: main.dialog.location
 
 	mainItem: FocusScope {
 		id: focusScope
