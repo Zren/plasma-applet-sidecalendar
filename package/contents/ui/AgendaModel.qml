@@ -55,6 +55,17 @@ QtObject {
 		return list
 	}
 
+	readonly property var writeableCalendarList: {
+		var list = []
+		for (var i = 0; i < calendarList.length; i++) {
+			var calendar = calendarList[i]
+			if (calendar.accessRole == 'owner' || calendar.accessRole == 'writer') {
+				list.push(calendar)
+			}
+		}
+		return list
+	}
+
 	property var defaultData: [
 		{
 			dateTime: deltaDateTime(0),

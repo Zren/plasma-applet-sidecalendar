@@ -71,6 +71,7 @@ PlasmaCore.Dialog {
 					}
 					CalendarSelector {
 						id: calendarSelector
+						model: agendaModel.writeableCalendarList
 					}
 				}
 
