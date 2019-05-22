@@ -61,9 +61,31 @@ PlasmaCore.Dialog {
 						onClicked: newEventDialog.close()
 					}
 				}
+				GridLayout {
+					columns: 2
+					columnSpacing: units.smallSpacing
 
-				CalendarSelector {
-					id: calendarSelector
+					EventDialogIcon {
+						source: "view-calendar-day"
+						labelFor: calendarSelector
+					}
+					CalendarSelector {
+						id: calendarSelector
+					}
+				}
+
+				RowLayout {
+					spacing: 0
+
+					Item {
+						Layout.fillWidth: true
+					}
+
+					PlasmaComponents3.Button {
+						id: saveButton
+						text: i18n("Save")
+						// onClicked: 
+					}
 				}
 			}
 		
