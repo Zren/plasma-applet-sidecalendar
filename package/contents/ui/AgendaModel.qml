@@ -223,8 +223,8 @@ QtObject {
 	}
 
 	function updateAgendaModel(callback) {
-		var start = '2019-03-01'
-		var end = '2019-03-31'
+		var start = '2019-05-01'
+		var end = '2019-05-31'
 		fetchAgenda(start, end, function(cmd, exitCode, exitStatus, stdout, stderr){
 			// console.log(cmd, exitCode, exitStatus, stdout, stderr)
 			// console.log(stdout)
