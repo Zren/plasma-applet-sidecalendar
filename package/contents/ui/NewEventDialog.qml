@@ -28,7 +28,7 @@ PlasmaCore.Dialog {
 	flags: Qt.WindowStaysOnTopHint
 	location: main.dialog.location
 
-	mainItem: FocusScope {
+	mainItem: Item {
 		id: focusScope
 		width: dialogLayout.implicitWidth
 		height: dialogLayout.implicitHeight
