@@ -263,14 +263,19 @@ QtObject {
 	}
 
 	function quickAdd(pluginId, calendarId, date, text, callback) {
-		sendQuickAdd(function(cmd, exitCode, exitStatus, stdout, stderr){
+		// console.log('quickAdd.start', pluginId, calendarId, date, text)
+		sendQuickAdd(pluginId, calendarId, date, text, function(cmd, exitCode, exitStatus, stdout, stderr){
+			// console.log('quickAdd.done')
+			// console.log('\t cmd', cmd)
+			// console.log('\t exitCode', exitCode)
+			// console.log('\t exitStatus', exitStatus)
+			// console.log('\t stdout', stdout)
+			// console.log('\t stderr', stderr)
 			var data = JSON.parse(stdout)
-			var newCalendarMap = {}
-			data.forEach(function(calendar){
-				newCalendarMap[calendar['id']] = calendar
-			})
+			// console.log('quickAdd.done', JSON.stringify(data, null, '\t'))
 
-			calendarMap = newCalendarMap
+			// TODO: parse event
+			// TODO: inject event into model
 
 			callback()
 		})

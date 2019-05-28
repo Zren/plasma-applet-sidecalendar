@@ -21,6 +21,7 @@ PlasmaCore.Dialog {
 			quickAddTextField.focus = true
 		} else {
 			agendaItem = null
+			quickAddTextField.text = ''
 			main.dialog.requestActivate()
 		}
 	}
@@ -34,7 +35,9 @@ PlasmaCore.Dialog {
 		id: focusScope
 		width: dialogLayout.implicitWidth
 		height: dialogLayout.implicitHeight
-	
+
+		Keys.onEscapePressed: newEventDialog.cancel()
+
 		MouseArea {
 			id: eventDialogMouseArea
 			anchors.fill: parent
@@ -57,11 +60,18 @@ PlasmaCore.Dialog {
 						font.pixelSize: 16 * units.devicePixelRatio
 						wrapMode: TextEdit.Wrap
 						inactiveBackgroundOpacity: 1
+
+						Keys.onEnterPressed: _onEnterPressed(event) // ?
+						Keys.onReturnPressed: _onEnterPressed(event) // What's triggered on a US Keyboard
+						function _onEnterPressed(event) {
+							// console.log('onEnterPressed', event.key, event.modifiers)
+							newEventDialog.accept()
+						}
 					}
 					PlasmaComponents3.ToolButton {
 						Layout.alignment: Qt.AlignTop
 						icon.name: "window-close-symbolic"
-						onClicked: newEventDialog.close()
+						onClicked: newEventDialog.cancel()
 					}
 				}
 				GridLayout {
@@ -88,11 +98,38 @@ PlasmaCore.Dialog {
 					PlasmaComponents3.Button {
 						id: saveButton
 						text: i18n("Save")
-						// onClicked: 
+						onClicked: {
+							newEventDialog.accept()
+						}
 					}
 				}
 			}
 		
 		}
+	}
+
+	function accept() {
+		var selectedCalendar = calendarSelector.currentItem
+		var pluginIndex = selectedCalendar.plugin.index
+		var calendarId = selectedCalendar.id
+		var date = dayData.dateTime
+		var text = quickAddTextField.text
+		// console.log('pluginId', pluginIndex)
+		// console.log('calendarId', calendarId)
+		// console.log('date', date)
+		// console.log('quickAddText', text)
+		// console.log('', JSON.stringify(selectedCalendar, null, '\t'))
+		if (typeof pluginIndex !== "undefined" && calendarId && date && text) {
+			// console.log('accept.start', pluginIndex, calendarId, date, text)
+			agendaModel.quickAdd(pluginIndex, calendarId, date, text, function(){
+				// console.log('accept.done')
+			})
+
+			close()
+		}
+	}
+
+	function cancel() {
+		close()
 	}
 }
