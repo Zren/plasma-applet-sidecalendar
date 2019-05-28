@@ -17,7 +17,9 @@ PlasmaCore.Dialog {
 	visible: false
 
 	onVisibleChanged: {
-		if (!visible) {
+		if (visible) {
+			quickAddTextField.focus = true
+		} else {
 			agendaItem = null
 			main.dialog.requestActivate()
 		}
@@ -46,6 +48,7 @@ PlasmaCore.Dialog {
 
 				RowLayout {
 					ZStyle2.TextField {
+						id: quickAddTextField
 						Layout.fillWidth: true
 						Layout.preferredWidth: 300 * units.devicePixelRatio
 						text: ""
