@@ -167,6 +167,16 @@ QtObject {
 		obj[key] = new Date(obj[key])
 	}
 
+	function wrapToken(token) {
+		token = token.replace('"', '\\"')
+		token = '"' + token + '"'
+		return token
+	}
+
+	function dateString(d) {
+		return d.toISOString().substr(0, 10)
+	}
+
 	function evcal(args, callback) {
 		var cmd = [
 			'python3',
@@ -244,10 +254,10 @@ QtObject {
 	function sendQuickAdd(pluginId, calendarId, date, text, callback) {
 		var args = [
 			'quickadd',
-			'--date=' + date,
+			'--date=' + dateString(date),
 			pluginId,
 			calendarId,
-			text,
+			wrapToken(text),
 		]
 		evcal(args, callback)
 	}
